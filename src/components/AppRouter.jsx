@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import UserResultContainer from '../containers/UserResultContainer';
 import ResultContainer from '../containers/ResultContainer';
 import Login from '../components/Login';
@@ -11,13 +11,13 @@ const AppRouter = () => {
     const {userID, setUserID} = useContext(UserIDContext);
 
     return (
-        <Switch>
-          <Route path='/results'><ResultContainer/></Route>
-          <Route path='/test'>{ isAuth ? <Testing userID={userID}/> : <Redirect to='/' />}</Route>
-          <Route path='/myresults'>{isAuth ? <UserResultContainer userID={userID}/> : <Redirect to='/' />}</Route>
-          <Route exact path='/'>{isAuth ? <Redirect to='/test' /> : <Login />}</Route>
-          <Route path='*'><Redirect to='/'/></Route>
-        </Switch>
+        <Routes>
+          <Route path='/' element={isAuth ? <Navigate to='/test' /> : <Login />} />
+          <Route path='results' element={<ResultContainer/>} />
+          <Route path='test' element={ isAuth ? <Testing userID={userID}/> : <Navigate to='/'/>} />
+          <Route path='myresults' element ={isAuth ? <UserResultContainer userID={userID}/> : <Navigate to='/' />} />
+          <Route path='*' element={<Navigate to='/' replace />} />
+        </Routes>
     )
 }
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ResultService from '../API/ResultService';
 import QuestionService from '../API/QuestionService';
 
@@ -37,11 +37,7 @@ const Testing = ({userID}) => {
         }
     }
 
-    const history = useHistory();
-
-    const routeChange = (route) => {
-        history.push(route);
-    }
+    const navigate = useNavigate();
 
     return (
         <div>{showEndQuestions ? <div>Вопросы закончились</div> : questions.length > 0 ? 
@@ -54,8 +50,8 @@ const Testing = ({userID}) => {
                     )}
                 </div>
             </div> : <></>}
-            <button onClick={() => routeChange('results')}>Общая статистика</button>
-            <button onClick={() => routeChange('myresults')}>Моя статистика</button>
+            <button onClick={() => navigate('/results')}>Общая статистика</button>
+            <button onClick={() => navigate('/myresults')}>Моя статистика</button>
         </div>
     )
 }
