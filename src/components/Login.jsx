@@ -9,7 +9,7 @@ const Login =() => {
   const {isAuth, setAuth} = useContext(AuthContext);
   const {userID, setUserID} = useContext(UserIDContext);
 
-  const login = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newUser = {
       LastName: lastName,
@@ -23,7 +23,7 @@ const Login =() => {
   }
 
   return (
-    <form onSubmit={login}>
+    <form onSubmit={handleSubmit}>
         <input
           value={lastName}
           placeholder='фамилия'
